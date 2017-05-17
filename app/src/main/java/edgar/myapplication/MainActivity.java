@@ -4,6 +4,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,9 +17,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import butterknife.ButterKnife;
+import edgar.myapplication.fragments.ListadoFragment;
+import edgar.myapplication.fragments.MapFragment;
+import edgar.myapplication.fragments.SearchFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,11 +52,18 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        final FrameLayout containerFragment = (FrameLayout) findViewById(R.id.containerFragment);
+        final RelativeLayout rlContainerButtons = (RelativeLayout) findViewById(R.id.rlContainerButtons);
+
         Button btn_map = (Button) findViewById(R.id.btn_map);
         btn_map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                rlContainerButtons.setVisibility(View.GONE);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.containerFragment, new MapFragment());
+                ft.commit();
+                containerFragment.setVisibility(View.VISIBLE);
             }
         });
 
@@ -57,7 +71,11 @@ public class MainActivity extends AppCompatActivity
         btn_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                rlContainerButtons.setVisibility(View.GONE);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.containerFragment, new ListadoFragment());
+                ft.commit();
+                containerFragment.setVisibility(View.VISIBLE);
             }
         });
 
@@ -65,7 +83,11 @@ public class MainActivity extends AppCompatActivity
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                rlContainerButtons.setVisibility(View.GONE);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.containerFragment, new SearchFragment());
+                ft.commit();
+                containerFragment.setVisibility(View.VISIBLE);
             }
         });
 
